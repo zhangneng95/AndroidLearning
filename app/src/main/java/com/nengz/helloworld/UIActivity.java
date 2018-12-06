@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.nengz.helloworld.fragment.ContainerActivity;
 import com.nengz.helloworld.jump.AActivity;
 import com.nengz.helloworld.recycleview.RecyclerViewActivity;
 
@@ -26,6 +27,7 @@ public class UIActivity extends AppCompatActivity {
     private Button mBtnPopupWindow;
     private Button mBtnLifeCycle;
     private Button mBtnJump;
+    private Button mBtnFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class UIActivity extends AppCompatActivity {
         mBtnPopupWindow = findViewById(R.id.btn_popupwindow);
         mBtnLifeCycle = findViewById(R.id.btn_lifecycle);
         mBtnJump = findViewById(R.id.btn_jump);
+        mBtnFragment = findViewById(R.id.btn_fragment);
         setListeners();
     }
 
@@ -66,6 +69,7 @@ public class UIActivity extends AppCompatActivity {
         mBtnPopupWindow.setOnClickListener(onClick);
         mBtnLifeCycle.setOnClickListener(onClick);
         mBtnJump.setOnClickListener(onClick);
+        mBtnFragment.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -133,6 +137,10 @@ public class UIActivity extends AppCompatActivity {
                 case R.id.btn_jump:
                     //跳转到AActivity演示界面
                     intent  = new Intent(UIActivity.this,AActivity.class);
+                    break;
+                case R.id.btn_fragment:
+                    //跳转到Fragment演示界面
+                    intent  = new Intent(UIActivity.this,ContainerActivity.class);
                     break;
             }
             startActivity(intent);

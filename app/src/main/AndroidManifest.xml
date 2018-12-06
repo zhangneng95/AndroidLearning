@@ -41,16 +41,21 @@
         <activity android:name=".ProgressActivity" />
         <activity android:name=".CustomDialogActivity" />
         <activity android:name=".PopupWindowActivity" />
-        <activity android:name=".LifeCycleActivity"/>
-        <activity android:name=".jump.AActivity"
-            android:label="A"/>   //设置最上方标题
-        <activity android:name=".jump.BActivity"
+        <activity android:name=".LifeCycleActivity" />
+        <activity
+            android:name=".jump.AActivity"
+            android:label="A" />
+        //设置最上方标题
+        <activity
+            android:name=".jump.BActivity"
             android:label="B">
             <intent-filter>
-                <action android:name="com.nengz.jump.BActivity" />         //用于隐式跳转
+                <action android:name="com.nengz.jump.BActivity" />
+                //用于隐式跳转
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".fragment.ContainerActivity"></activity>
     </application>
 
 </manifest>
