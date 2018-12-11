@@ -16,16 +16,32 @@ import com.nengz.helloworld.R;
 public class AFragment extends Fragment {
 
     private TextView mTvTitle;
-    private Button mBtnChange,mBtnRest;
+    private Button mBtnChange,mBtnRest,mBtnMessage;
     private BFragment bFragment;
+    private IOnMessageClick listener;
 
-    //传递参数
+    //传递参数 从Activity到Fragment
     public static AFragment newInstance(String title) {
         AFragment fragment = new AFragment();
         Bundle bundle = new Bundle();
         bundle.putString("title",title);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    public interface  IOnMessageClick{
+        void onClick(String text);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (IOnMessageClick) context;
+        }catch (ClassCastException e) {
+            throw new ClassCastException("Activity 必须实现IOnMessageClick 接口");
+        }
+
     }
 
     @Nullable
@@ -41,6 +57,7 @@ public class AFragment extends Fragment {
         mTvTitle = view.findViewById(R.id.tv_title);
         mBtnChange = view.findViewById(R.id.btn_change);
         mBtnRest = view.findViewById(R.id.btn_reset);
+        mBtnMessage = view.findViewById(R.id.btn_message);
         //转跳到BFragment
         mBtnChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +80,17 @@ public class AFragment extends Fragment {
                 mTvTitle.setText("我是新文字");
             }
         });
+        //从Fragment到Activity传参数
+        mBtnMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ((ContainerActivity)getActivity()).setData("你好");    这个方法不推荐
+                listener.onClick("你好");
+
+            }
+        });
+
+
         if(getArguments() != null) {
             mTvTitle.setText(getArguments().getString("title"));
         }
