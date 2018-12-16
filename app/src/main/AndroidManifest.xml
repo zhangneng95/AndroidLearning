@@ -58,7 +58,8 @@
         <activity android:name=".fragment.ContainerActivity" />
         <activity android:name=".Event.EventActivity" />
         <activity android:name=".datastorage.DataStorageActivity" />
-        <activity android:name=".datastorage.SharedPreferencesActivity"></activity>
+        <activity android:name=".datastorage.SharedPreferencesActivity" />
+        <activity android:name=".datastorage.FileActivity"></activity>
     </application>
 
 </manifest>
