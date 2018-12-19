@@ -1,5 +1,6 @@
 package com.nengz.helloworld.datastorage;
 
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.nengz.helloworld.R;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -50,7 +52,19 @@ public class FileActivity extends AppCompatActivity {
     private void save(String content) {
         FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = openFileOutput(mFileName,MODE_PRIVATE);
+//            fileOutputStream = openFileOutput(mFileName,MODE_PRIVATE);    //内部存储
+            //外部存储
+            File dir = new File(Environment.getExternalStorageDirectory(),"nengz"); //在sd卡创建nengz的文件夹
+            if(!dir.exists()) {
+                dir.mkdirs();       //如果文件夹不存在 就新建
+            }
+            File file= new File(dir,mFileName);   //在dir文件夹里面新建 mFileName的文件
+            if(!file.exists()) {
+                file.createNewFile();
+            }
+            fileOutputStream = new FileOutputStream(file);
+
+
             fileOutputStream.write(content.getBytes());
             fileOutputStream.close();
         } catch (IOException e) {
@@ -71,7 +85,11 @@ public class FileActivity extends AppCompatActivity {
     private String read(){
         FileInputStream fileInputStream = null;
         try {
-            fileInputStream = openFileInput(mFileName);
+//            fileInputStream = openFileInput(mFileName);  //内部读取
+            //外部读取
+            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"nengz",mFileName);  //在sd卡的nengz目录下读取mFileName的文件
+            fileInputStream = new FileInputStream(file);
+
             byte[] buff = new byte[1024];
             StringBuilder sb = new StringBuilder("");
             int len = 0;
