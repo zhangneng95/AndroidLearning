@@ -2,23 +2,39 @@ package com.nengz.helloworld.Event;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.nengz.helloworld.R;
+import com.nengz.helloworld.widget.MyButton;
 
 
 //给同一个事件源设置同种类监听器的时候 系统会响应最后一个监听器  布局（视图）文件中的监听器 默认为最先注册
 public class EventActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button mBtnEvent;
+    private MyButton btnMy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         mBtnEvent = findViewById(R.id.btn_event);
+        btnMy = findViewById(R.id.btn_my);
+        btnMy.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d("Listener","---onTouch---");
+                        break;
+                }
+                return false;
+            }
+        });
         //内部类实现
         mBtnEvent.setOnClickListener(new OnClick());
         //匿名内部类
@@ -63,5 +79,15 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(EventActivity.this, "click布局", Toast.LENGTH_LONG).show();
                 break;
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                Log.d("Activity","---onTouchEvent---");
+                break;
+        }
+        return false;
     }
 }
