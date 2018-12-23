@@ -20,15 +20,22 @@ public class MyButton extends AppCompatButton {
         super(context, attrs, defStyleAttr);
     }
 
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        Log.d("MyButton","---dispatchTouchEvent---");
+        return super.dispatchTouchEvent(event);
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        super.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.d("MyButton","--onTouchEvent--");
                 break;
         }
 
-        return false;    //return false 会一层一层回调 true的话表示这个事件我已处理其他的就不会再处理
+//        return false;    //return false 会一层一层回调 true的话表示这个事件我已处理其他的就不会再处理
+        return super.onTouchEvent(event);
     }
 }

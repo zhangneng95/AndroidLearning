@@ -35,6 +35,18 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
                 return false;
             }
         });
+        btnMy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Listener","---onClick---");
+            }
+        });
+        btnMy.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;                  // 长按事件return false 还会继续执行onClickListener
+            }
+        });
         //内部类实现
         mBtnEvent.setOnClickListener(new OnClick());
         //匿名内部类
